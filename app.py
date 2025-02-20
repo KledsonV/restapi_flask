@@ -10,9 +10,11 @@ db = MongoEngine()
 app.config['MONGODB_SETTINGS'] = [
     {
         "db": "users",
-        "host": "localhost",
+        "host": "mongodb",
         "port": 27017,
         "alias": "default",
+        "user":"admin",
+        "password":"admin"
     }
 ]
 
