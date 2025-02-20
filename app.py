@@ -1,9 +1,20 @@
 from flask import Flask
 from flask_restful import Resource, Api
+from flask_mongoengine import MongoEngine
 
 app = Flask(__name__)
 api = Api(app)
 
+
+db = MongoEngine()
+app.config['MONGODB_SETTINGS'] = [
+    {
+        "db": "users",
+        "host": "localhost",
+        "port": 27017,
+        "alias": "default",
+    }
+]
 
 class Users(Resource):
     def get(self):
@@ -21,5 +32,6 @@ class User(Resource):
 api.add_resource(Users, "/users")
 api.add_resource(User, "/user", "/user/<string:cpf>")
 
+db.init_app(app)
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
