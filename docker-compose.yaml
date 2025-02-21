@@ -13,7 +13,7 @@ services:
   restapi:
     build: .
     volumes:
-      - .:/app
+      - ./application:/app/application
     environment:
       - FLASK_ENV=development
     ports:

@@ -4,5 +4,5 @@ flake:
 	@flake8 . --exclude .venv
 
 compose:  #flake ( dependence )
-	@docker compose build
-	@docker compose up -d
+	docker build -t flask_app .
+	docker compose up -d

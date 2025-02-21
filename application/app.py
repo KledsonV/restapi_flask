@@ -28,7 +28,6 @@ _user_parser.add_argument('birth_date',
                           help="This field cannot be blank.")
 
 
-
 class Users(Resource):
     def get(self):
         return jsonify(UserModel.objects())
@@ -86,6 +85,5 @@ class User(Resource):
         response = UserModel.objects(cpf=cpf)
         if response:
             return jsonify(response)
-        
-        return {"message": "user does not exist."}, 400
 
+        return {"message": "user does not exist."}, 400
