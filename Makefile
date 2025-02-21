@@ -3,6 +3,6 @@ APP = restapi
 flake:
 	@flake8 . --exclude .venv
 
-compose:
+compose:  #flake ( dependence )
 	@docker-compose build
 	@docker-compose up
