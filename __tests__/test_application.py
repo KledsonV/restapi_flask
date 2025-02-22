@@ -41,3 +41,12 @@ class TestApplication():
         response = client.post('/user', json=invalid_user)
         assert response.status_code == 400
         assert b"CPF is invalid" in response.data
+
+    def test_get_user(self, client, valid_user, invalid_user):
+        response = client.get('/user/%s' % valid_user['cpf'])
+        assert response.status_code == 200
+        assert response.json[0]['cpf'] == "320.380.970-20"
+
+        response = client.get('/user/%s' % invalid_user['cpf'])
+        assert response.status_code == 400
+        assert b"user does not exist." in response.data
