@@ -68,9 +68,9 @@ class User(Resource):
         try:
             result = UserModel(**data)
             result.save()
-            return {"statusCode": 200,
+            return {"statusCode": 201,
                     "message":
-                        "User created success."}
+                        "User created success."}, 201
         # except NotUniqueError:
         #     return {"statusCode": 400,
         #             "message":
