@@ -5,5 +5,5 @@ flake:
 	@pytest -v --disable-warnings
 
 compose:  flake
-	@docker build -t flask_app .
-	@docker compose up -d
+	@sudo docker build -t flask_app .
+	@sudo docker compose up -d
