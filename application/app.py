@@ -86,7 +86,7 @@ class User(Resource):
         if response:
             return jsonify(response)
 
-        return {"message": "user does not exist."}, 400
+        return {"statusCode": 400, "message": "user does not exist."}, 400
 
     def patch(self):
         data = _user_parser.parse_args()
@@ -116,3 +116,11 @@ class User(Resource):
             return {"statusCode": 500,
                     "message":
                         "An unexpected error occurred."}, 500
+
+    def delete(self, cpf):
+        response = UserModel.objects(cpf=cpf)
+        if response:
+            response.delete()
+            return {"status_code": 200, "message": "User deleted."}, 200
+
+        return {"status_code": 400, "message": "User does not exist."}, 400
