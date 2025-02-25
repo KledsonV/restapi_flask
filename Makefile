@@ -1,6 +1,7 @@
 APP = restapi
 
-flake:
+format:
+	@black .
 	@flake8 . --exclude .venv
 	@pytest -v --disable-warnings
 
