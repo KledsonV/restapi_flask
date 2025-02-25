@@ -87,3 +87,32 @@ class User(Resource):
             return jsonify(response)
 
         return {"message": "user does not exist."}, 400
+
+    def patch(self):
+        data = _user_parser.parse_args()
+        if not self.validate_cpf(cpf=data['cpf']):
+            return {"statusCode": 400, "message": "CPF is invalid"}, 400
+        if not UserModel.objects(cpf=data['cpf']).first():
+            return {"statusCode": 400,
+                    "message":
+                        "CPF not exists in database."}, 400
+        if UserModel.objects(email=data['email']).first():
+            return {"statusCode": 400,
+                    "message":
+                        "Email already exists in database."}, 400
+
+        response = UserModel.objects(cpf=data['cpf'])
+        try:
+            response.update(**data)
+            return {"statusCode": 200,
+                    "message":
+                        "User updated success."}, 200
+        # except NotUniqueError:
+        #     return {"statusCode": 400,
+        #             "message":
+        #                 "CPF already exists in database."}, 400
+        except Exception:
+            print(f"Unexpected error: {traceback.format_exc()}")
+            return {"statusCode": 500,
+                    "message":
+                        "An unexpected error occurred."}, 500
