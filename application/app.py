@@ -1,6 +1,6 @@
 from flask import jsonify
 from flask_restful import Resource, reqparse
-from .model import UserModel
+from .model import UserModel, HealthCheckModel
 import re
 import traceback
 
@@ -26,6 +26,15 @@ _user_parser.add_argument('birth_date',
                           type=str,
                           required=True,
                           help="This field cannot be blank.")
+
+
+class HealthCheck(Resource):
+    def get(self):
+        response = HealthCheckModel.objects(status="healthcheck")
+        if response:
+            return "Healthy", 200
+        HealthCheckModel(status="healthcheck").save()
+        return "Healthy", 200
 
 
 class Users(Resource):
